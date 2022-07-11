@@ -29,29 +29,14 @@ def new_calc(max=20):
         return False
 
 
-def run():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--max',
-        help='The maximum number the kid can calculate with.',
-        type=int,
-        default=20
-    )
-    parser.add_argument(
-        '--amount',
-        help='The amount of problems the kid should solve.',
-        type=int,
-        default=10
-    )
-    arguments = parser.parse_args()
-
+def start_math(name='Robert', max=20, amount=20):
     start_time = time.time()
     x = 1
     right = 0
     wrong = 0
 
-    while x <= arguments.amount:
-        if new_calc(arguments.max):
+    while x <= amount:
+        if new_calc(max):
             right += 1
         else:
             wrong += 1
@@ -73,3 +58,30 @@ def run():
         print(f'     in {seconds:3d} Sekunden')
     print(f'  davon \033[92m{right:3d}\033[0m richtig')
     print(f'    und \033[91m{wrong:3d}\033[0m falsch')
+
+
+def run():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'name',
+        help='The kids name.',
+    )
+    parser.add_argument(
+        '--max',
+        help='The maximum number the kid can calculate with.',
+        type=int,
+        default=20
+    )
+    parser.add_argument(
+        '--amount',
+        help='The amount of problems the kid should solve.',
+        type=int,
+        default=10
+    )
+    arguments = parser.parse_args()
+
+    start_math(name=arguments.name, max=arguments.max, amount=arguments.amount)
+
+
+if __name__ == '__main__':
+    start_math()
